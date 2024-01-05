@@ -2,8 +2,25 @@ import SwiftUI
 
 struct ContentView: View {
 
+    @State private var shouldOpenInfo = false
+    
 	var body: some View {
-        ArticleScreen(viewModel: .init())
+        NavigationStack {
+            ArticleScreen(viewModel: .init())
+                .toolbar {
+                    ToolbarItem {
+                        Button {
+                            shouldOpenInfo = true
+                        } label: {
+                            Label("정보", systemImage: "info.circle")
+                                .labelStyle(.titleAndIcon)
+                        }
+                        .popover(isPresented: $shouldOpenInfo) {
+                            InfoScreen()
+                        }
+                }
+            }
+        }
 	}
 }
 

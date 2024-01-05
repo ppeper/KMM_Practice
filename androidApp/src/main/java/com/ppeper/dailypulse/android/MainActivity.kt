@@ -3,6 +3,7 @@ package com.ppeper.dailypulse.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -10,13 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ppeper.dailypulse.Platform
 import com.ppeper.dailypulse.android.screens.InfoScreen
+import com.ppeper.dailypulse.article.ArticleViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // expect로 생성한 class와 실제로 actual 클래스로 상속받은 android 로직
-        Platform().logSystemInfo()
+        val articleViewModel: ArticleViewModel by viewModels()
 
         setContent {
             MyApplicationTheme {
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    InfoScreen()
+                    AppScaffold(articleViewModel = articleViewModel)
                 }
             }
         }
@@ -35,6 +36,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
-        InfoScreen()
+        AppScaffold(articleViewModel = ArticleViewModel())
     }
 }
