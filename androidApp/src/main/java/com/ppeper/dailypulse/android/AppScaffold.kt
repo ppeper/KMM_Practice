@@ -15,9 +15,7 @@ import com.ppeper.dailypulse.android.screens.Screen
 import com.ppeper.dailypulse.article.ArticleViewModel
 
 @Composable
-fun AppScaffold(
-    articleViewModel: ArticleViewModel
-) {
+fun AppScaffold() {
     val navController = rememberNavController()
 
     Scaffold {
@@ -26,7 +24,6 @@ fun AppScaffold(
                 .fillMaxWidth()
                 .padding(it),
             navController = navController,
-            articleViewModel
         )
     }
 }
@@ -35,7 +32,6 @@ fun AppScaffold(
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    articleViewModel: ArticleViewModel
 ) {
     NavHost(
         modifier = modifier,
@@ -46,8 +42,7 @@ fun AppNavHost(
             ArticleScreen(
                 onInfoButtonClick = {
                     navController.navigate(Screen.INFO.route)
-                },
-                articleViewModel = articleViewModel
+                }
             )
         }
         composable(Screen.INFO.route) {
