@@ -9,10 +9,12 @@ import kotlinx.datetime.todayIn
 import kotlin.math.abs
 
 class ArticleUseCase(
-    private val articleService: ArticleService
+    private val repository: ArticleRepository
 ) {
-    suspend fun getArticles(): List<Article> {
-        return articleService.fetchArticles().map {
+    suspend fun getArticles(
+        forceFetch: Boolean
+    ): List<Article> {
+        return repository.getArticles(forceFetch).map {
             Article(
                 title = it.title,
                 desc = it.desc ?: "클릭하여 보기",
